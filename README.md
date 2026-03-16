@@ -8,20 +8,13 @@ Incluye:
 - shortcuts de símbolos,
 - propiedades matemáticas útiles de suma, resta, multiplicación y división.
 
-En las secciones de **firmas** y **keywords** encontrarás siempre dos enfoques:
-
-- **Para programadores**
-- **Para matemáticos**
-
----
-
 ## 1. Mapa mental de Lean en 30 segundos
 
-- En Lean, una proposición es un tipo (`Prop`).
-- Una demostración es un término de ese tipo.
+- En Lean, una proposición se define con `Prop` .
 - `def` define objetos/funciones.
 - `theorem`/`lemma`/`example` construyen demostraciones.
-- `by` abre modo táctico (paso a paso).
+- `:=` es para asignar ya sea un valor o una demostración.
+- `by` abre modo táctico (demostración paso a paso).
 
 Ejemplo:
 
@@ -30,8 +23,6 @@ example (P Q : Prop) : P ∧ Q → Q ∧ P := by
   rintro ⟨hP, hQ⟩
   exact ⟨hQ, hP⟩
 ```
-
----
 
 ## 2. Firmas en Lean
 
@@ -104,11 +95,9 @@ Ejemplo:
 #check (fun x : Nat => x + 1)
 ```
 
----
-
 ## 3. Keywords y tácticas comunes
 
-> Nota: varias de estas “keywords” son tácticas de modo `by`.
+> Nota: La mayoría de estas keywords solo se pueden usar si se entra en el modo táctico `by`.
 
 | Keyword | Firma/uso típico | Para programadores | Para matemáticos |
 |---|---|---|---|
@@ -155,8 +144,6 @@ example (m n : Int) : myEven m ∧ myEven n → myEven (m + n) := by
     _ = 2 * (a + b) := by rw [← left_distrib]
 ```
 
----
-
 ## 4. Shortcuts de símbolos (entrada Unicode en Lean)
 
 En VS Code con Lean, escribe `\comando` y normalmente presiona `Tab` o `Space`.
@@ -196,8 +183,6 @@ En VS Code con Lean, escribe `\comando` y normalmente presiona `Tab` o `Space`.
 | `\gamma` | `γ` | Letras griegas |
 
 Consejo: si no recuerdas un símbolo, empieza por `\` y escribe una palabra parecida en inglés (`exists`, `forall`, `subset`, `lambda`, etc.).
-
----
 
 ## 5. Propiedades matemáticas en Lean
 
@@ -246,6 +231,10 @@ Observaciones importantes:
 | Neutro `1` | `one_mul`, `mul_one` | `1 * a = a`, `a * 1 = a` |
 | Absorbente `0` | `zero_mul`, `mul_zero` | `0 * a = 0`, `a * 0 = 0` |
 | Distributiva | `mul_add`, `add_mul` | `a*(b+c)=a*b+a*c`, `(a+b)*c=a*c+b*c` |
+| Distributiva izquierda | `left_distrib` | `a*(b+c)=a*b+a*c` |
+| Distributiva derecha | `right_distrib` | `(a+b)*c=a*c+b*c` |
+| Distributiva en resta (izquierda) | `mul_sub_left_distrib`, `mul_sub` | `a*(b-c)=a*b-a*c` |
+| Distributiva en resta (derecha) | `mul_sub_right_distrib`, `sub_mul` | `(a-b)*c=a*c-b*c` |
 | Cancelación no nula | `mul_left_cancel₀`, `mul_right_cancel₀` | Requiere hipótesis de no-cero |
 
 Ejemplo:
@@ -303,8 +292,8 @@ Observaciones clave:
 | Propiedad (nombre matemático) | Fórmula | En Lean |
 |---|---|---|
 | Cuadrado de la raíz | `(√x)^2 = x` con `0 ≤ x` | `Real.sq_sqrt` |
+| Raíz del cuadrado en general | `√(x^2) =` |x| | `Real.sqrt_sq_eq_abs` |
 | Raíz del cuadrado (no negativo) | `√(x^2) = x` con `0 ≤ x` | `Real.sqrt_sq` |
-| Raíz del cuadrado en general | `√(x^2) = |x|` | `Real.sqrt_sq_eq_abs` |
 | Criterio de raíz nula | `√x = 0 ↔ x = 0` con `0 ≤ x` | `Real.sqrt_eq_zero` |
 | Raíz de producto | `√(xy) = √x * √y` (con hipótesis) | `Real.sqrt_mul` |
 | Raíz de cociente | `√(x/y) = √x / √y` (con hipótesis) | `Real.sqrt_div` |
@@ -335,8 +324,6 @@ En reales, una forma común de modelar raíz n-ésima es:
 
 `Real.rpow` es la potencia real `x^y` (exponente real), útil para modelar raíces y exponenciales fraccionales.
 
----
-
 ## 6. Mini chuleta práctica (flujo mental)
 
 Cuando leas o escribas una prueba en Lean:
@@ -348,8 +335,6 @@ Cuando leas o escribas una prueba en Lean:
 5. Si hay simplificaciones obvias, prueba `simp`.
 6. Si necesitas un paso intermedio, crea `have`.
 7. Cierra con `exact` cuando ya tengas justo el tipo del objetivo.
-
----
 
 ## 7. Errores comunes (y cómo leerlos)
 
@@ -363,14 +348,3 @@ Estrategia práctica:
 1. Revisa el objetivo y las hipótesis visibles.
 2. Usa `#check` para confirmar firmas.
 3. Reduce el problema con `have` y `calc` en pasos pequeños.
-
----
-
-## 8. Cierre
-
-Este manual está pensado para usarse como referencia diaria.
-Si quieres ampliarlo, una buena siguiente sección sería:
-
-- cuantificadores y lógica proposicional en profundidad,
-- estructuras algebraicas (`Monoid`, `Ring`, `Field`),
-- táctica `ring`, `linarith`, `nlinarith` con ejemplos.
