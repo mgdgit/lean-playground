@@ -12,6 +12,7 @@ jobs:
   lean-release-tag:
     name: Add Lean release tag
     runs-on: ubuntu-latest
+    if: ${{ github.event.before != '0000000000000000000000000000000000000000' }}
     permissions:
       contents: write
     steps:
