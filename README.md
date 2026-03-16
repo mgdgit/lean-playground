@@ -10,7 +10,7 @@ Incluye:
 
 ## 1. Mapa mental de Lean en 30 segundos
 
-- En Lean, una proposición se define con `Prop` .
+- En Lean, `Prop` es una proposición.
 - `def` define objetos/funciones.
 - `theorem`/`lemma`/`example` construyen demostraciones.
 - `:=` es para asignar ya sea un valor o una demostración.
